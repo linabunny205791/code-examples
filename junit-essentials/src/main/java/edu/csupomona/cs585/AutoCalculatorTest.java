@@ -4,38 +4,37 @@ public class AutoCalculatorTest {
 
 	public void testAdd() {
 		Calculator c = new Calculator();
-		double res = c.add(15, 8);
-		if (res == 23) {
-			System.out.println("Correct!");
+		double res = c.add(51, 8);
+		if (res == 59) {
+			System.out.println("Correct");
 		} else {
-			throw new IllegalStateException("Wrong result: " + res);
+			throw new IllegalStateException("The sum is incorrect.");
 		}
 	}
 
-	public void testMinor() {
+	public void testAdd2() {
 		Calculator c = new Calculator();
-		double res = c.add(15, 8);
-		if (res == 23) {
-			System.out.println("Correct!");
+		double res = c.add(30, 8);
+		if (res == 38) {
+			System.out.println("Correct");
 		} else {
-			throw new IllegalStateException("Wrong result: " + res);
+			throw new IllegalStateException("The sum is incorrect.");
 		}
 	}
 
 	public static void main(String[] args) {
 		int errors = 0;
-		AutoCalculatorTest cTest = new AutoCalculatorTest();
+		AutoCalculatorTest act = new AutoCalculatorTest();
 		try {
-			cTest.testAdd();
-			cTest.testMinor();
+			act.testAdd();
+			act.testAdd2();
 		} catch (IllegalStateException e) {
-			errors++;
+			errors ++;
 			e.printStackTrace();
 		}
 
 		if (errors > 0) {
-			throw new IllegalStateException(errors + " tests failed");
+			throw new IllegalStateException("You have " + errors + " errors.");
 		}
 	}
-
 }

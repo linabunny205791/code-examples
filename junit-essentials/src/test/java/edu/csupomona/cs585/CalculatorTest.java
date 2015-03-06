@@ -1,84 +1,62 @@
 package edu.csupomona.cs585;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import java.io.File;
+import java.io.IOException;
 
-import org.hamcrest.Matchers;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ErrorCollector;
-import org.junit.rules.ExpectedException;
-import org.junit.runners.MethodSorters;
+import org.junit.rules.TemporaryFolder;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CalculatorTest {
 
+	private static boolean isConnected = false;
+
 	@Rule
-    public ExpectedException thrown = ExpectedException.none();
+	public TemporaryFolder folder = new TemporaryFolder();
+
 
 
 	private static Calculator c;
 
 	@BeforeClass
 	public static void setup() {
+		//Assume.assumeTrue(isConnected);
+		System.out.println("Setup");
 		c = new Calculator();
-		c.reset();
 	}
 
 	@AfterClass
 	public static void cleanup() {
-		c.freemem();
+		System.out.println("cleanup");
 	}
 
-	@Test
+	@Test(timeout = 1000)
 	public void testAdd() {
-		System.out.println("1");
-		double res = c.add(5, 1);
-		assertEquals(6, res, 0);
-
-
-		res = c.add(5, 10);
-		assertEquals(15, res, 0);
-
-		res = c.add(15, 10);
-		assertEquals("Incorrect add operation. Wrong sum value.", 25, res, 0);
-
-		assertTrue(res > 0);
-
-		assertNotNull(c);
+		System.out.println("testadd");
+		double res = c.add(41, 4);
+		Assert.assertEquals(45, res, 0);
 	}
 
 	@Test
-	public void testAdd2() {
-		System.out.println("2");
-		double res = c.add(7, 1);
-		assertEquals(8, res, 0);
+	public void testAdd2() throws IOException {
+		System.out.println("testadd2");
+		double res = c.add(41, 0);
+		Assert.assertEquals(41, res, 0);
+
+		//
+	    File createdFile = folder.newFile("myfile.txt");
+	    File createdFolder = folder.newFolder("mysubfolder");
+	    System.out.println(createdFile.getAbsolutePath());
+	    System.out.println(createdFolder.getAbsolutePath());
 	}
 
-	@Test()
-	public void atestAdd3() {
-		System.out.println("3");
-		double res = c.add(7, 1);
-		assertEquals(8, res, 0);
-
-		thrown.expect(NullPointerException.class);
-	    throw new NullPointerException();
-
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddThrowException() {
+		System.out.println("testaddexception");
+		double res = c.add(-41, 0);
 	}
-
-	@Rule
-	   public ErrorCollector collector = new ErrorCollector();
-
-//	   @Test
-//	   public void fails_after_execution() {
-//		   collector.checkThat("a", Matchers.equalTo("b"));
-//		   collector.checkThat(1, Matchers.equalTo(2));
-//		   collector.checkThat("ae", Matchers.equalTo("g"));
-//	   }
-
-
 }

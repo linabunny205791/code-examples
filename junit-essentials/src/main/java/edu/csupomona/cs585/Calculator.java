@@ -7,21 +7,16 @@ package edu.csupomona.cs585;
 public class Calculator {
 
     public double add( double number1, double number2 ) {
-    	if (number1 < 0 || number2 < 0) {
-    		//throw new IllegalArgumentException("Only non-negative numbers are allowed.");
-    	}
-    	String res = "";
-    	for(int i = 0; i < 10000; i++) {
-    		res += "abc";
-    	}
+    		StringBuffer res = new StringBuffer("test");
+    		for(int i = 0; i < 10000; i++) {
+    			res.append("a");
+    		}
+
+    		if (number1 < 0 || number2 < 0) {
+    			throw new IllegalArgumentException(
+    					"Only non-negative numbers are allowed!");
+    		}
         return number1 + number2;
     }
 
-    public void reset() {
-    	System.out.println("Reset calculator.");
-    }
-
-    public void freemem() {
-    	System.out.println("Free memory");
-    }
 }
